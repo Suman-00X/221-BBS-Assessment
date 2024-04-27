@@ -5,10 +5,10 @@ import { secretKey } from '../Middlewares/jwtMiddleware.js';
 
 const signup = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, role, address, phoneNumber} = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await userModel.create({ username, email, password: hashedPassword });
+        const user = await userModel.create({ username, email, password: hashedPassword, role, address, phoneNumber });
         res.status(201).json(user);
 
     } catch (error) {
