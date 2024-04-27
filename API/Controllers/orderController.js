@@ -1,5 +1,5 @@
-import productModel from './productModel.js';
-import orderModel from './orderModel.js';
+import productModel from '../Models/ProductModel.js';
+import orderModel from '../Models/OrderModel.js';
 
 // Get all products
 const getAllHoodies = async (req, res) => {

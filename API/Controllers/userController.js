@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 import userModel from '../Models/UserModel.js';
 import { secretKey } from '../Middlewares/jwtMiddleware.js';
 
@@ -45,5 +46,19 @@ const login = async (req, res) => {
     }
 };
 
+// Get profile
+const getUserProfile = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
-export { signup, login };
+
+export { signup, login, getUserProfile };

@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { userSignup, userLogin } from '../Controllers/userControllers';
+import { userSignup, userLogin, getUserProfile } from '../Controllers/userControllers';
 import { addProduct, updateProduct, deleteProduct } from '../Controllers/productController.js';
 import { getAllHoodies, getOneHoodie, orderHoodie } from './userController.js';
 
@@ -12,6 +12,7 @@ const router = express.Router();
 //user routes (login, signup)
 router.post('/signup', userSignup);
 router.post('/login', userLogin);
+router.get('/profile', authenticateToken, getUserProfile);
 
 
 // Admin routes for product(add, modify and delete)
