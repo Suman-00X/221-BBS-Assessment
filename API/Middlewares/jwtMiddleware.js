@@ -7,24 +7,24 @@ const authenticateToken = (req, res, next) => {
 
     const token = req.cookies.jwt;
 
-  if (!token) return res.sendStatus(401);
+    if (!token) return res.sendStatus(401);
 
-  jwt.verify(token, secretKey, async (err, user) => {
+    jwt.verify(token, secretKey, async (err, user) => {
 
-    if (err) return res.sendStatus(403);
-    
-    try {
+        if (err) return res.sendStatus(403);
 
-        req.user = await userModel.findById(user.id);
-        next();
+        try {
 
-      } catch (error) {
+            req.user = await userModel.findById(user.id);
+            next();
 
-        console.error('Error finding user:', error);
-        res.sendStatus(500);
+        } catch (error) {
 
-      }
-  });
+            console.error('Error finding user:', error);
+            res.sendStatus(500);
+
+        }
+    });
 };
 
 export { authenticateToken, secretKey };
