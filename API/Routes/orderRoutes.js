@@ -1,6 +1,7 @@
 import express from 'express';
 
-import { getAllHoodies, getOneHoodie, orderHoodie } from './userController.js';
+import { getAllHoodies, getOneHoodie, orderHoodie } from '../Controllers/orderController.js';
+import { authenticateToken } from '../Middlewares/jwtMiddleware.js';
 
 const router = express.Router();
 
