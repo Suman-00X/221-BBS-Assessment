@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
+import './Signup.css'; 
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -8,14 +9,14 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [userType, c] = useState(''); 
+  const [userType, setUserType] = useState('user'); 
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
-  const handleUserType = (e) => {
-    handleUserType(e.target.value);
-  };
+  // const handleUserType = (e) => {
+  //   handleUserType(e.target.value);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +29,7 @@ const Signup = () => {
         phoneNumber,
         userType 
       });
+      console.log(response)
       navigate('/login');
     } catch (error) {
       setError('An error occurred during signup');
@@ -35,7 +37,7 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className="signup-container">
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -60,7 +62,7 @@ const Signup = () => {
         </div>
         <div>
           <label>User Type:</label>
-          <select value={userType} onChange={handleUserType}>
+          <select value={userType} onChange={(e) => setUserType(e.target.value)}>
             <option value="user">User</option>
             <option value="admin">Admin</option>
           </select>

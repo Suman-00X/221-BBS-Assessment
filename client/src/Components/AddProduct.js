@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './AddProduct.css';
 
 const AddProduct = () => {
   const [name, setName] = useState('');
@@ -41,9 +42,9 @@ const AddProduct = () => {
   };
 
   return (
-    <div>
+    <div className="add-product-container">
       <h2>Add Product</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="add-product-form" onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />

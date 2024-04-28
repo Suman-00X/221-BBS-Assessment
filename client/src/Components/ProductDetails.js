@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import './ProductDetails.css';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -27,9 +28,9 @@ const ProductDetails = () => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('User not authenticated');
-        }
+      if (!token) {
+        throw new Error('User not authenticated');
+      }
       await axios.delete(`http://localhost:5000/products/delete/${id}`, {
         headers: {
           Authorization: `${token}`
@@ -59,13 +60,14 @@ const ProductDetails = () => {
   }
 
   return (
-    <div>
+    <div className="product-details-container">
       <h2>Product Details</h2>
       {product && (
-        <div>
+        <div className="product-details">
           <h3>{product.name}</h3>
           <p>Description: {product.description}</p>
           <p>Price: ${product.price}</p>
+          <p>Quantity(Stock): {product.quantity}</p>
           <button onClick={handleDelete}>Delete</button> 
           <button onClick={handleModify}>Modify</button>
           <button onClick={handleOrder}>Order</button>

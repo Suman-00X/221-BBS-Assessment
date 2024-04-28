@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; 
 import axios from 'axios';
+import './Login.css'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -36,7 +37,7 @@ const Login = () => {
         {error && <div style={{ color: 'red' }}>{error}</div>}
         <button type="submit">Login</button>
       </form>
-      <div>
+      <div className="signup-link">
         <p>Don't have an account?</p>
         <Link to="/signup">Signup</Link>
       </div>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './Profile.css'; 
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -34,7 +34,6 @@ const Profile = () => {
           address: response.data.address || '',
           phoneNumber: response.data.phoneNumber || ''
         });
-        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -65,12 +64,8 @@ const Profile = () => {
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div>
+    <div className="profile-container">
       <h2>Profile</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -94,9 +89,11 @@ const Profile = () => {
         <button type="submit">Update Profile</button>
       </form>
       {user && user.role === 'admin' && (
-        <Link to="/add-product">
-          <button>Add Product</button>
-        </Link>
+        <div className="admin-button">
+          <Link to="/add-product">
+            <button>Add Product</button>
+          </Link>
+        </div>
       )}
     </div>
   );

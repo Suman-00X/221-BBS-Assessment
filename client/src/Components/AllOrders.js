@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './AllOrders.css';
 
 const AllOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -10,14 +11,14 @@ const AllOrders = () => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-            if (!token) {
-                throw new Error('User not authenticated');
-            }
+        if (!token) {
+          throw new Error('User not authenticated');
+        }
         const response = await axios.get('http://localhost:5000/orders/all', {
           headers: {
-              Authorization: `${token}`
+            Authorization: `${token}`
           }
-      });
+        });
         setOrders(response.data);
         setLoading(false);
       } catch (error) {
@@ -39,10 +40,10 @@ const AllOrders = () => {
   }
 
   return (
-    <div>
+    <div className="all-orders-container">
       <h2>All Orders</h2>
       {orders.map(order => (
-        <div key={order._id}>
+        <div key={order._id} className="order-card">
           <h3>Order ID: {order._id}</h3>
           <p>User: {order.user.name}</p>
           <p>Total Price: ${order.totalPrice}</p>

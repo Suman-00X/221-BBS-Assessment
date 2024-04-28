@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './Home.css'; 
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -28,13 +29,14 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className="home-container">
       <h2>Home</h2>
       {isLoggedIn ? (
         <Link to={`/profile`}>Profile</Link>
       ) : (
         <Link to={`/login`}>Login</Link>
-      )}      <div className="product-list">
+      )}
+      <div className="product-list">
         {products.map(product => (
           <div key={product._id} className="product-item">
             <h3>{product.name}</h3>

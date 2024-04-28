@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import './OrderPage.css'; // Import CSS file
 
 const OrderPage = () => {
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
-    const [price, setPrice] = useState('');
     const [address, setAddress] = useState("");
     const [error, setError] = useState('');
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const { id } = useParams();
-
 
     useEffect(() => {
         const fetchProductDetails = async () => {
@@ -19,7 +17,6 @@ const OrderPage = () => {
                 const response = await axios.get(`http://localhost:5000/orders/${id}`);
                 const prod = response.data;
                 setProduct(prod);
-                setPrice(prod.price)
             } catch (error) {
                 console.error(error);
                 setError('Product not found');
@@ -45,7 +42,6 @@ const OrderPage = () => {
                 }
             });
 
-
             navigate('/my-orders')
 
         } catch (error) {
@@ -55,9 +51,9 @@ const OrderPage = () => {
     };
 
     return (
-        <div>
+        <div className="order-page-container">
             <h2>Order Page</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="order-form">
                 {product && (
                     <div>
                         <h3>{product.name}</h3>
@@ -81,24 +77,3 @@ const OrderPage = () => {
 };
 
 export default OrderPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// try {
-//     const response = await axios.post('http://localhost:5000/orders/order', { productId: id });
-//     navigate(`/order-success/${response.data.orderId}`);
-//   } catch (error) {
-//     console.error(error);
-//     setError('An error occurred while placing the order');
-//   }

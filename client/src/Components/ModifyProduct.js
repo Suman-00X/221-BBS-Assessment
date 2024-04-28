@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import './ModifyProduct.css';
 
 const ModifyProduct = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    price: ''
+    price: '',
+    quantity : ''
   });
   const [error, setError] = useState('');
   const navigate = useNavigate()
@@ -26,11 +27,11 @@ const ModifyProduct = () => {
             Authorization: `${token}`
           }
         });
-        setProduct(response.data);
         setFormData({
           name: response.data.name,
           description: response.data.description,
-          price: response.data.price
+          price: response.data.price,
+          quantity: response.data.quantity
         });
         setLoading(false);
       } catch (error) {
@@ -74,9 +75,9 @@ const ModifyProduct = () => {
   }
 
   return (
-    <div>
+    <div className="modify-product-container">
       <h2>Modify Product</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="modify-product-form" onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
           <input type="text" name="name" value={formData.name} onChange={handleChange} />
@@ -88,6 +89,10 @@ const ModifyProduct = () => {
         <div>
           <label>Price:</label>
           <input type="text" name="price" value={formData.price} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Quantity(Stock):</label>
+          <input type="text" name="quantity" value={formData.quantity} onChange={handleChange} />
         </div>
         {error && <div style={{ color: 'red' }}>{error}</div>}
         <button type="submit">Save Changes</button>
