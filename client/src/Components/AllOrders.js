@@ -9,7 +9,15 @@ const AllOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/orders/all-orders');
+        const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('User not authenticated');
+            }
+        const response = await axios.get('http://localhost:5000/orders/all', {
+          headers: {
+              Authorization: `${token}`
+          }
+      });
         setOrders(response.data);
         setLoading(false);
       } catch (error) {

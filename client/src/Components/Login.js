@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, Link } from 'react-router-dom'; 
 import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +36,10 @@ const Login = () => {
         {error && <div style={{ color: 'red' }}>{error}</div>}
         <button type="submit">Login</button>
       </form>
+      <div>
+        <p>Don't have an account?</p>
+        <Link to="/signup">Signup</Link>
+      </div>
     </div>
   );
 };

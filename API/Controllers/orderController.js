@@ -80,6 +80,8 @@ const orderHoodie = async (req, res) => {
 
 //get all orders
 const getAllOrders = async (req, res) => {
+
+  console.log("i am getAllOrders controller")
   try {
     const orders = await orderModel.find().populate('user').populate('products.product');
     console.log(orders)

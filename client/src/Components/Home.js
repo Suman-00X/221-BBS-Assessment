@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,6 +19,8 @@ const Home = () => {
     };
 
     fetchProducts();
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
   }, []);
 
   if (loading) {
@@ -27,12 +30,17 @@ const Home = () => {
   return (
     <div>
       <h2>Home</h2>
-      <div className="product-list">
+      {isLoggedIn ? (
+        <Link to={`/profile`}>Profile</Link>
+      ) : (
+        <Link to={`/login`}>Login</Link>
+      )}      <div className="product-list">
         {products.map(product => (
           <div key={product._id} className="product-item">
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
+            <p>Quantity(Stock): {product.quantity}</p>
             <Link to={`/product/${product._id}`}>View Details</Link>
           </div>
         ))}
