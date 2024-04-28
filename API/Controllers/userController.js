@@ -77,5 +77,28 @@ const getUserProfile = async (req, res) => {
   }
 };
 
+//update profile
+const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user.id;
 
-export { signup, login, getUserProfile };
+    const { username, email, address, phoneNumber } = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { username, email, address, phoneNumber },
+      { new: true } 
+    );
+
+    if (updatedUser) {
+      res.json(updatedUser);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).json({ message: 'An error occurred while updating profile' });
+  }
+};
+
+export { signup, login, getUserProfile, updateProfile };

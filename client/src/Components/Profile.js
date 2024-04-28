@@ -53,7 +53,7 @@ const Profile = () => {
       if (!token) {
         throw new Error('User not authenticated');
       }
-      await axios.put('http://localhost:5000/user/profile', formData, {
+      await axios.put('http://localhost:5000/user/update', formData, {
         headers: {
           Authorization: `${token}`
         }
