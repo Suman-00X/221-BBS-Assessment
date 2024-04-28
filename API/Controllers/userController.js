@@ -32,27 +32,23 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     console.log("I am login-controller")
-    console.log(email, password)
+    console.log(email, password, secretKey)
 
 
     const user = await userModel.findOne({ email });
+    console.log(user)
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const token = jwt.sign({ id: user._id }, secretKey);
+    console.log(token)
 
-    const cookieOptions = {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-      expires: new Date(Date.now() + 300 * 24 * 60 * 60 * 1000),
-    };
-
-    res.cookie('jwt', token, cookieOptions);
-
-    res.json({ message: 'Login successful' });
+    res
+    .cookie('jwt', token, { httpOnly: true,  expires: new Date(Date.now() + 300 * 24 * 60 * 60 * 1000) })
+    .status(200)
+    .json(token);
 
   } catch (error) {
     console.log(error.message)

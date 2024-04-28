@@ -12,7 +12,7 @@ import orderRoutes from './Routes/orderRoutes.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI
 const CORS_ORIGIN = process.env.CORS_ORIGIN
 
@@ -20,7 +20,7 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: CORS_ORIGIN, credentials: true }));
+app.use(cors());
 
 
 
@@ -39,7 +39,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 // Routes
 app.use('/user', userRoutes);
 app.use('/products', productRoutes);
-app.use('/order', orderRoutes); 
+app.use('/orders', orderRoutes); 
 
 
 // Error handling middleware

@@ -37,34 +37,62 @@ const getOneHoodie = async (req, res) => {
 // Place order
 const orderHoodie = async (req, res) => {
   try {
-    const { products } = req.body;
+    const { product, quantity, address } = req.body;
     const userId = req.user._id;
 
-    console.log("I am orderHoodie-conttroller")
+    console.log("I am orderHoodie-controller");
 
-    const order = await orderModel.create({ user: userId, products });
-    console.log(order)
-
-    for (const item of products) {
-      const product = await productModel.findById(item.productId);
-      if (!product) {
-        return res.status(404).json({ message: `Product with ID ${item.productId} not found` });
-      }
-      if (item.quantity > product.quantity) {
-        return res.status(400).json({ message: `Insufficient stock for product ${product.name}` });
-      }
-      product.quantity -= item.quantity;
-      await product.save();
+    if (!product) {
+      return res.status(400).json({ message: "Product is required" });
+    }
+    if (!quantity || quantity <= 0) {
+      return res.status(400).json({ message: "Quantity must be a positive number" });
     }
 
+    const productItem = await productModel.findById(product);
+    if (!productItem) {
+      return res.status(404).json({ message: `Product with ID ${product} not found` });
+    }
+    if (quantity > productItem.quantity) {
+      return res.status(400).json({ message: `Insufficient stock for product ${productItem.name}` });
+    }
 
-    console.log(order)
+    const totalPrice = quantity * productItem.price;
+
+    const order = await orderModel.create({
+      user: userId,
+      products: [{ product: productItem._id, quantity }],
+      address,
+      totalPrice
+    });
+    console.log(order);
+
+    productItem.quantity -= quantity;
+    await productItem.save();
 
     res.status(201).json(order);
   } catch (error) {
-    console.log(error.message)
+    console.error(error.message);
     res.status(400).send(error.message);
   }
 };
 
-export { getAllHoodies, getOneHoodie, orderHoodie };
+
+//get all orders
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find().populate('user').populate('products.product');
+    console.log(orders)
+    if (!orders) {
+      return res.status(404).json({ message: 'No orders found' });
+    }
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+
+export { getAllHoodies, getOneHoodie, orderHoodie, getAllOrders };
