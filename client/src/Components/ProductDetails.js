@@ -13,7 +13,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/orders/${id}`);
+        const response = await axios.get(`https://bbs-backend.onrender.com/orders/${id}`);
         setProduct(response.data);
         setLoading(false);
       } catch (error) {
@@ -31,7 +31,7 @@ const ProductDetails = () => {
       if (!token) {
         throw new Error('User not authenticated');
       }
-      await axios.delete(`http://localhost:5000/products/delete/${id}`, {
+      await axios.delete(`https://bbs-backend.onrender.com/products/delete/${id}`, {
         headers: {
           Authorization: `${token}`
         }

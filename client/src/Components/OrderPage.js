@@ -14,7 +14,7 @@ const OrderPage = () => {
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/orders/${id}`);
+                const response = await axios.get(`https://bbs-backend.onrender.com/orders/${id}`);
                 const prod = response.data;
                 setProduct(prod);
             } catch (error) {
@@ -32,7 +32,7 @@ const OrderPage = () => {
             if (!token) {
                 throw new Error('User not authenticated');
             }
-            await axios.post('http://localhost:5000/orders/order', {
+            await axios.post('https://bbs-backend.onrender.com/orders/order', {
                 product: id, 
                 quantity: quantity,
                 address: address

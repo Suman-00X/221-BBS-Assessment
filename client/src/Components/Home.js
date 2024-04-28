@@ -6,12 +6,11 @@ import './Home.css';
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/orders/');
+        const response = await axios.get('https://bbs-backend.onrender.com/orders/');
         setProducts(response.data);
         setLoading(false);
       } catch (error) {
@@ -20,8 +19,7 @@ const Home = () => {
     };
 
     fetchProducts();
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
+  
   }, []);
 
   if (loading) {
@@ -31,11 +29,6 @@ const Home = () => {
   return (
     <div className="home-container">
       <h2>Home</h2>
-      {isLoggedIn ? (
-        <Link to={`/profile`}>Profile</Link>
-      ) : (
-        <Link to={`/login`}>Login</Link>
-      )}
       <div className="product-list">
         {products.map(product => (
           <div key={product._id} className="product-item">

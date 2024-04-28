@@ -12,7 +12,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/user/login', { email, password });
+      const response = await axios.post('https://bbs-backend.onrender.com/user/login', { email, password });
       console.log(response.data)
       localStorage.setItem('token', response.data);
       console.log(localStorage)

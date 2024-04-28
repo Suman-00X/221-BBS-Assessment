@@ -14,7 +14,7 @@ const AllOrders = () => {
         if (!token) {
           throw new Error('User not authenticated');
         }
-        const response = await axios.get('http://localhost:5000/orders/all', {
+        const response = await axios.get('https://bbs-backend.onrender.com/orders/all', {
           headers: {
             Authorization: `${token}`
           }

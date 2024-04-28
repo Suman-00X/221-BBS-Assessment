@@ -22,7 +22,7 @@ const ModifyProduct = () => {
         if (!token) {
           throw new Error('User not authenticated');
         }
-        const response = await axios.get(`http://localhost:5000/orders/${id}`, {
+        const response = await axios.get(`https://bbs-backend.onrender.com/orders/${id}`, {
           headers: {
             Authorization: `${token}`
           }
@@ -54,7 +54,7 @@ const ModifyProduct = () => {
         if (!token) {
           throw new Error('User not authenticated');
         }
-      await axios.put(`http://localhost:5000/products/update/${id}`, formData,{
+      await axios.put(`https://bbs-backend.onrender.com/products/update/${id}`, formData,{
         headers: {
           Authorization: `${token}`
         }

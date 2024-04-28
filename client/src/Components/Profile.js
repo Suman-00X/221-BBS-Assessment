@@ -21,7 +21,7 @@ const Profile = () => {
         if (!token) {
           throw new Error('User not authenticated');
         }
-        const response = await axios.get('http://localhost:5000/user/profile', {
+        const response = await axios.get('https://bbs-backend.onrender.com/user/profile', {
           headers: {
             Authorization: `${token}`
           }
@@ -53,7 +53,7 @@ const Profile = () => {
       if (!token) {
         throw new Error('User not authenticated');
       }
-      await axios.put('http://localhost:5000/user/update', formData, {
+      await axios.put('https://bbs-backend.onrender.com/user/update', formData, {
         headers: {
           Authorization: `${token}`
         }

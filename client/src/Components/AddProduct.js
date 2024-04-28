@@ -21,7 +21,7 @@ const AddProduct = () => {
       if (!token) {
         throw new Error('User not authenticated');
       }
-      await axios.post('http://localhost:5000/products/add', {
+      await axios.post('https://bbs-backend.onrender.com/products/add', {
         name,
         description,
         price,

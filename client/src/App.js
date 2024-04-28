@@ -9,10 +9,13 @@ import ProductDetails from './Components/ProductDetails';
 import ModifyProduct from './Components/ModifyProduct';
 import OrderPage from './Components/OrderPage'
 import AllOrders from './Components/AllOrders'
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 function App() {
   return (
     <BrowserRouter>
+    <Header/>
       <Routes>
         <Route path="/"  element={<Home/>} />
         <Route path="/login" element={<Login/>} />
@@ -24,6 +27,7 @@ function App() {
         <Route path="/order/:id" element={<OrderPage/>} />
         <Route path="/my-orders" element={<AllOrders/>} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }
