@@ -1,11 +1,11 @@
 import productModel from '../Models/ProductModel.js';
 
 // Add
-const addProduct = async (req, res) => {
+const addHoodie = async (req, res) => {
   try {
     const { name, description, price, color, size, image, quantity } = req.body;
 
-    console.log("I am addProduct-controller")
+    console.log("I am addHoodie-controller")
     console.log(name, description, price, color, size, image, quantity )
 
     const newProduct = await productModel.create({
@@ -28,11 +28,11 @@ const addProduct = async (req, res) => {
 };
 
 // Update
-const updateProduct = async (req, res) => {
+const updateHoodie = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    console.log("I am updateProduct-controller")
+    console.log("I am updateHoodie-controller")
 
     const { name, description, price, color, size, image, quantity } = req.body;
 
@@ -48,7 +48,7 @@ const updateProduct = async (req, res) => {
       quantity,
     }, { new: true });
 
-    console.log(updateProduct)
+    console.log(updateHoodie)
 
     res.json(updatedProduct);
   } catch (error) {
@@ -58,11 +58,11 @@ const updateProduct = async (req, res) => {
 };
 
 // Delete
-const deleteProduct = async (req, res) => {
+const deleteHoodie = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    console.log("I am deleteProduct-controller")
+    console.log("I am deleteHoodie-controller")
 
     await productModel.findByIdAndDelete(productId);
     res.sendStatus(204);
@@ -72,4 +72,4 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-export { addProduct, updateProduct, deleteProduct };
+export { addHoodie, updateHoodie, deleteHoodie };
